@@ -1,5 +1,15 @@
 {
     "name": "kylwes/laravel-pipes",
+    "description": "Easily chain and execute multiple actions on a single data object.",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "pipes",
+        "pipeline",
+        "middleware"
+    ],
+    "license": "MIT",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "kylianwester",
