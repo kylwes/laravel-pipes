@@ -1,6 +1,6 @@
-# Laravel pipe
+# Laravel pipes
 
-Laravel Pipe is a PHP library that allows you to easily chain and execute multiple actions on a single data object. It is inspired by the Unix pipe concept, where the output of one command can be used as the input to another command.
+Laravel Pipes is a PHP library that allows you to easily chain and execute multiple actions on a single data object. It is inspired by the Unix pipe concept, where the output of one command can be used as the input to another command.
 
 ```php
 $user = $createUser->execute($request->validated());
@@ -94,4 +94,4 @@ Contributions are welcome! If you find a bug or have a feature request, please o
 - [Kylian Wester](https://github.com/kylwes)
 
 ## License
-Laravel Pipe is licensed under the MIT license. See the LICENSE file for details.
+Laravel Pipes is licensed under the MIT license. See the LICENSE file for details.
