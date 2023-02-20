@@ -1,5 +1,9 @@
 # Laravel pipes
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/kylwes/laravel-pipes.svg?style=flat-square)](https://packagist.org/packages/kylwes/laravel-pipes)
+[![Total Downloads](https://img.shields.io/packagist/dt/kylwes/laravel-pipes.svg?style=flat-square)](https://packagist.org/packages/kylwes/laravel-pipes)
+
+
 Laravel Pipes is a PHP library that allows you to easily chain and execute multiple actions on a single data object. It is inspired by the Unix pipe concept, where the output of one command can be used as the input to another command.
 
 ```php
