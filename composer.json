@@ -5,8 +5,7 @@
     "keywords": [
         "laravel",
         "pipes",
-        "pipeline",
-        "middleware"
+        "actions"
     ],
     "license": "MIT",
     "version": "0.1.0",
