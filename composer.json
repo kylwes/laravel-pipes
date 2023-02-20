@@ -1,0 +1,27 @@
+{
+    "name": "kylwes/laravel-pipes",
+    "authors": [
+        {
+            "name": "kylianwester",
+            "email": "kylian@kobaltdigital.nl"
+        }
+    ],
+    "scripts": {
+        "test": "./vendor/bin/pest"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "9.x-dev"
+    },
+    "require-dev": {
+        "pestphp/pest": "2.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "KylWes\\Pipes\\": "src",
+            "KylWes\\Pipes\\Tests\\": "tests"
+        },
+        "files": ["src/helpers.php"]
+    }
+}
