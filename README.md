@@ -1,4 +1,4 @@
-# Laravel pipes
+# Laravel Pipes
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kylwes/laravel-pipes.svg?style=flat-square)](https://packagist.org/packages/kylwes/laravel-pipes)
 [![Total Downloads](https://img.shields.io/packagist/dt/kylwes/laravel-pipes.svg?style=flat-square)](https://packagist.org/packages/kylwes/laravel-pipes)
@@ -29,7 +29,7 @@ composer require kylwes/pipe
 ## Usage
 
 You can create a pipe by use the `pipe` function:
-```
+```php
 $user = pipe($request->validated(), [
     CreateUser::class,
     SendWelcomeEmail::class,
@@ -37,7 +37,7 @@ $user = pipe($request->validated(), [
 ```
 
 When one of your actions expects another parameter, you can use the `with` method:
-```
+```php
 // App\Actions\AssignRoleToUser.php
 class AssignRoleToUser
 {
@@ -60,7 +60,7 @@ $user = pipe($request->validated())
 ```
 
 You can also use pass anonymous functions:
-```
+```php
 $user = pipe($data, [
     CreateUser::class,
     function ($user) {
@@ -72,7 +72,7 @@ $user = pipe($data, [
 ]); // $user is an instance of App\Models\User
 ```
 or call a function:
-```
+```php
 $title = pipe('  My awesome title   ', [
     'trim',
     'strtoupper',
