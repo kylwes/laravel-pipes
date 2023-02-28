@@ -79,6 +79,15 @@ $title = pipe('  My awesome title   ', [
 ]); // $title is 'MY AWESOME TITLE'
 ```
 
+You can also pipe each individual item in an array or collection by using the `->each()` method:
+```php
+$users = pipe($users)
+    ->each()
+    ->through([
+        ResetAnswers::class,
+        InviteForNextSession::class,
+    ]);
+```
 
 
 

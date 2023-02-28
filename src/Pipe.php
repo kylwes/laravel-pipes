@@ -11,6 +11,9 @@ use ReflectionException;
 
 class Pipe
 {
+
+    private bool $each = false;
+
     protected array|null $with = null;
 
     protected mixed $data = null;
@@ -25,33 +28,28 @@ class Pipe
      */
     public function through($actions)
     {
-        return collect($actions)->reduce(function ($data, $action) {
-            $data = $this->getMergedData($data, $action);
+        if ($this->each) {
+            return collect($this->data)->map(fn ($item) => $this->getReduce($item, $actions));
+        }
 
-            // Check if action is a closure
-            if ($action instanceof Closure || is_callable($action)) {
-                return $this->callClosure($data, $action);
-            }
-
-            // Check if action is class
-            if (!class_exists($action)) {
-                throw new RuntimeException('Action class does not exist');
-            }
-
-            // Check if is class and has execute method
-            if (!method_exists(new $action, 'execute') && !method_exists(new $action, '__invoke')) {
-                throw new RuntimeException('Action class does not have an execute method or is not invokable');
-            }
-
-            if (method_exists(new $action, '__invoke')) {
-                return $this->callInvokableAction($data, $action);
-            }
-
-            return $this->callAction($data, $action);
-        }, $this->data);
+        return $this->getReduce($this->data, $actions);
     }
 
-    public function with($data): static
+    /**
+     * @return $this
+     */
+    public function each(): static
+    {
+        $this->each = true;
+
+        return $this;
+    }
+
+    /**
+     * @param $data
+     *
+     * @return $this
+     */public function with($data): static
     {
         $this->with = $data;
 
@@ -132,5 +130,40 @@ class Pipe
     private function callInvokableAction($data, $action)
     {
         return (new $action)(...$data);
+    }
+
+    /**
+     * @param $data
+     * @param $actions
+     *
+     * @return mixed
+     * @throws ReflectionException
+     */
+    private function getReduce($data, $actions): mixed
+    {
+        return collect($actions)->reduce(function ($data, $action) {
+            $data = $this->getMergedData($data, $action);
+
+            // Check if action is a closure
+            if ($action instanceof Closure || is_callable($action)) {
+                return $this->callClosure($data, $action);
+            }
+
+            // Check if action is class
+            if (!class_exists($action)) {
+                throw new RuntimeException('Action class does not exist');
+            }
+
+            // Check if is class and has execute method
+            if (!method_exists(new $action, 'execute') && !method_exists(new $action, '__invoke')) {
+                throw new RuntimeException('Action class does not have an execute method or is not invokable');
+            }
+
+            if (method_exists(new $action, '__invoke')) {
+                return $this->callInvokableAction($data, $action);
+            }
+
+            return $this->callAction($data, $action);
+        }, $data);
     }
 }
