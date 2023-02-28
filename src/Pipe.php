@@ -11,10 +11,8 @@ use ReflectionException;
 
 class Pipe
 {
-    /**
-     * @var true
-     */
-    public $each;
+
+    private bool $each = false;
 
     protected array|null $with = null;
 
@@ -37,6 +35,9 @@ class Pipe
         return $this->getReduce($this->data, $actions);
     }
 
+    /**
+     * @return $this
+     */
     public function each(): static
     {
         $this->each = true;
@@ -44,7 +45,11 @@ class Pipe
         return $this;
     }
 
-    public function with($data): static
+    /**
+     * @param $data
+     *
+     * @return $this
+     */public function with($data): static
     {
         $this->with = $data;
 
@@ -127,6 +132,13 @@ class Pipe
         return (new $action)(...$data);
     }
 
+    /**
+     * @param $data
+     * @param $actions
+     *
+     * @return mixed
+     * @throws ReflectionException
+     */
     private function getReduce($data, $actions): mixed
     {
         return collect($actions)->reduce(function ($data, $action) {
